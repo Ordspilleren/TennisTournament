@@ -8,5 +8,11 @@ namespace TennisTournament
 {
     class Game
     {
+        public Player[] Players;
+
+        public Game(Player[] matchPlayers)
+        {
+
+        }
     }
 }

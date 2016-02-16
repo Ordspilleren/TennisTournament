@@ -17,6 +17,7 @@ namespace TennisTournament
 
         public int GetAge()
         {
+            //http://stackoverflow.com/questions/9/how-do-i-calculate-someones-age-in-c
             DateTime today = DateTime.Today;
             int age = today.Year - BirthDate.Year;
 
@@ -24,6 +25,18 @@ namespace TennisTournament
             {
                 age--;
             }
+
+            return age;
+        }
+
+        public Player(string firstName, string middleName, string lastName, DateTime birthDate, string nationality, Gender gender)
+        {
+            this.FirstName = firstName;
+            this.MiddleName = middleName;
+            this.LastName = lastName;
+            this.BirthDate = birthDate;
+            this.Nationality = nationality;
+            this.Gender = gender;
         }
     }
 }
