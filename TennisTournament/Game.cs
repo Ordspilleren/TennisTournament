@@ -8,11 +8,26 @@ namespace TennisTournament
 {
     class Game
     {
-        public Player[] Players;
+        public enum Type { WSingle, MSingle, WDouble, MDouble, MixDouble }
+        public bool Bo3;
+        public bool Bo5;
 
-        public Game(Player[] matchPlayers)
+        public Game(List<Player> matchPlayers, Type matchType)
         {
+            if (matchType == Type.WSingle || matchType == Type.WDouble)
+            {
+                Bo3 = true;
+            } else
+            {
+                Bo5 = true;
+            }
 
+            Console.WriteLine("Match created! Players in match:");
+
+            foreach (Player matchPlayer in matchPlayers)
+            {
+                Console.WriteLine(matchPlayer.FirstName);
+            }
         }
     }
 }

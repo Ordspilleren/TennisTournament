@@ -12,16 +12,21 @@ namespace TennisTournament
         public DateTime Year;
         public DateTime DateFrom;
         public DateTime DateTo;
-        public Player[] Players;
+        public List<Player> Players;
+        public List<Game> Matches = new List<Game>();
 
-        public Tournament()
+        public Tournament(List<Player> tournamentPlayers)
         {
-            for (int i = 1; i < Players.Length; i += 2)
+            this.Players = tournamentPlayers;
+
+            // 
+            List<Player> matchPlayers = new List<Player>();
+            for (int i = 1; i < Players.Count; i += 2)
             {
-                Player[] matchPlayers = new Player[2];
-                matchPlayers[0] = Players[i - 1];
-                matchPlayers[1] = Players[i];
-                Game match = new Game(matchPlayers);
+                matchPlayers.Add(Players[i - 1]);
+                matchPlayers.Add(Players[i]);
+                Matches.Add(new Game(matchPlayers, Game.Type.MixDouble));
+                matchPlayers.Clear();
             }
         }
     }
