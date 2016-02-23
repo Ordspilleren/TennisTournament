@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace TennisTournament
 {
-    class Game
+    class Match
     {
         public enum Type { WSingle, MSingle, WDouble, MDouble, MixDouble }
         public bool Bo3;
         public bool Bo5;
+        public int Team1Points
 
-        public Game(List<Player> matchPlayers, Type matchType)
+        public Match(List<Player> matchPlayers, Type matchType)
         {
             if (matchType == Type.WSingle || matchType == Type.WDouble)
             {

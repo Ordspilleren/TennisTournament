@@ -13,7 +13,7 @@ namespace TennisTournament
         public DateTime DateFrom;
         public DateTime DateTo;
         public List<Player> Players;
-        public List<Game> Matches = new List<Game>();
+        public List<Match> Matches = new List<Match>();
 
         public Tournament(List<Player> tournamentPlayers)
         {
@@ -25,7 +25,7 @@ namespace TennisTournament
             {
                 matchPlayers.Add(Players[i - 1]);
                 matchPlayers.Add(Players[i]);
-                Matches.Add(new Game(matchPlayers, Game.Type.MixDouble));
+                Matches.Add(new Match(matchPlayers, Match.Type.MixDouble));
                 matchPlayers.Clear();
             }
         }
