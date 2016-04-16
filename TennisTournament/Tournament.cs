@@ -20,14 +20,14 @@ namespace TennisTournament
             this.Players = tournamentPlayers;
 
             // 
-            List<Player> matchPlayers = new List<Player>();
-            for (int i = 1; i < Players.Count; i += 2)
-            {
-                matchPlayers.Add(Players[i - 1]);
-                matchPlayers.Add(Players[i]);
-                Matches.Add(new Match(matchPlayers, Match.Type.MixDouble));
-                matchPlayers.Clear();
-            }
+            //List<Player> matchPlayers = new List<Player>();
+            //for (int i = 1; i < Players.Count; i += 2)
+            //{
+            //    matchPlayers.Add(Players[i - 1]);
+            //    matchPlayers.Add(Players[i]);
+            //    Matches.Add(new Match(matchPlayers, Match.Type.MixDouble));
+            //    matchPlayers.Clear();
+            //}
         }
     }
 }
