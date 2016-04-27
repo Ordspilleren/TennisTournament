@@ -97,6 +97,9 @@ namespace TennisTournament
             if (MatchType == Type.MSingle)
             {
                 return (SinglePlayers[0].Gender == Gender.Male && SinglePlayers[1].Gender == Gender.Male);
+            } else if (MatchType == Type.MDouble)
+            {
+                return ((DoublePlayers[0].Item1.Gender == Gender.Male && DoublePlayers[0].Item2.Gender == Gender.Male) && (DoublePlayers[1].Item1.Gender == Gender.Male && DoublePlayers[1].Item2.Gender == Gender.Male));
             }
             return false;
         }

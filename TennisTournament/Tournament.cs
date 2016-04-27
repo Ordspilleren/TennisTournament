@@ -8,26 +8,70 @@ namespace TennisTournament
 {
     class Tournament
     {
-        public string Name;
-        public DateTime Year;
-        public DateTime DateFrom;
-        public DateTime DateTo;
-        public List<Player> Players;
-        public List<Match> Matches = new List<Match>();
+        private string Name { get; set; }
+        private DateTime Year { get; set; }
+        private DateTime DateFrom { get; set; }
+        private DateTime DateTo { get; set; }
+        private List<Referee> Referees { get; set; }
+        private List<Player> Players { get; set; }
+        private Referee GameMaster { get; set; }
 
-        public Tournament(List<Player> tournamentPlayers)
+        public Tournament(string name, DateTime year, DateTime dateFrom, DateTime dateTo, List<Referee> referees, List<Player> players)
         {
-            this.Players = tournamentPlayers;
+            this.Name = name;
+            this.Year = Year;
+            this.DateFrom = dateFrom;
+            this.DateTo = dateTo;
+            this.Referees = referees;
+            this.Players = players;
+        }
 
-            // 
-            //List<Player> matchPlayers = new List<Player>();
-            //for (int i = 1; i < Players.Count; i += 2)
-            //{
-            //    matchPlayers.Add(Players[i - 1]);
-            //    matchPlayers.Add(Players[i]);
-            //    Matches.Add(new Match(matchPlayers, Match.Type.MixDouble));
-            //    matchPlayers.Clear();
-            //}
+        public void AddPlayer(Player player)
+        {
+            Players.Add(player);
+        }
+
+        public void RemovePlayer(Player player)
+        {
+            //var item = Players.Find(x => x.FirstName == player.FirstName && x.MiddleName == player.MiddleName && x.LastName == player.LastName);
+            Players.Remove(player);
+        }
+
+        public void AddReferee(Referee referee)
+        {
+            Referees.Add(referee);
+        }
+
+        public void RemoveReferee(Referee referee)
+        {
+            Referees.Remove(referee);
+        }
+
+        // This method will add a Game Master if one doesn't excist, or replace the existing one.
+        public void AddGameMaster(Referee referee)
+        {
+            if (Referees.Contains(referee))
+            {
+                GameMaster = referee;
+            } else
+            {
+                // Some proper errors should probably be used instead of return
+                return;
+            }
+        }
+
+        public List<Player> ListPlayers(bool firstName = true)
+        {
+            List<Player> sortedPlayers;
+            if (firstName)
+            {
+                sortedPlayers = Players.OrderBy(x => x.FirstName).ToList();
+            } else
+            {
+                sortedPlayers = Players.OrderBy(x => x.LastName).ToList();
+            }
+
+            return sortedPlayers;
         }
     }
 }

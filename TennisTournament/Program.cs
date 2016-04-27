@@ -10,7 +10,7 @@ namespace TennisTournament
     {
         static void Main(string[] args)
         {
-            Player henning = new Player("Henning", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
+            Player henning = new Player("Henning", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
             Player karsten = new Player("Karsten", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
             Player gert = new Player("Gert", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
             Player trine = new Player("Trine", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
@@ -24,13 +24,14 @@ namespace TennisTournament
 
             var gamePlayers = new List<Tuple<Player, Player>>();
             gamePlayers.Add(new Tuple<Player, Player>(henning, karsten));
-            gamePlayers.Add(new Tuple<Player, Player>(gert, trine));
+            gamePlayers.Add(new Tuple<Player, Player>(gert, karl));
             var sets = new List<Tuple<int, int>>();
             sets.Add(new Tuple<int, int>(6, 2));
             sets.Add(new Tuple<int, int>(3, 6));
             sets.Add(new Tuple<int, int>(5, 6));
 
             Match match = new Match(Match.Type.MDouble, gamePlayers, sets);
+            Console.WriteLine(match.ValidateType());
 
             foreach (Player player in match.GetWinner())
             {

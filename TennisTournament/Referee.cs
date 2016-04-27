@@ -17,9 +17,16 @@ namespace TennisTournament
         public DateTime LicenceAcquired { get; set; }
         public DateTime LicenceRenewed { get; set; }
 
-        public Referee()
+        public Referee(string firstName, string middleName, string lastName, DateTime birthDate, string nationality, Gender gender, DateTime licenceAcquired, DateTime licenceRenewed)
         {
-
+            this.FirstName = firstName;
+            this.MiddleName = middleName;
+            this.LastName = lastName;
+            this.BirthDate = birthDate;
+            this.Nationality = nationality;
+            this.Gender = gender;
+            this.LicenceAcquired = licenceAcquired;
+            this.LicenceRenewed = licenceRenewed;
         }
     }
 }
