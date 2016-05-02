@@ -16,6 +16,7 @@ namespace TennisTournament
         private List<Tuple<Player, Player>> DoublePlayers { get; set; }
         private List<Tuple<int, int>> SetResults { get; set; }
         private Referee Referee { get; set; }
+        public List<Player> Winner { get; set; }
 
         public Match(Type matchType, List<Tuple<Player, Player>> doublePlayers, List<Tuple<int, int>> setResults) : this(matchType, setResults)
         {

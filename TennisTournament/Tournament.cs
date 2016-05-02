@@ -15,6 +15,7 @@ namespace TennisTournament
         private List<Referee> Referees { get; set; }
         private List<Player> Players { get; set; }
         private Referee GameMaster { get; set; }
+        private List<Match> Matches { get; set; }
 
         public Tournament(string name, DateTime year, DateTime dateFrom, DateTime dateTo, List<Referee> referees, List<Player> players)
         {
@@ -72,6 +73,15 @@ namespace TennisTournament
             }
 
             return sortedPlayers;
+        }
+
+        private List<Match> InitializeMatches()
+        {
+            for (int i = 0; i < Players.Count / 2; i += 2)
+            {
+                Match match = new Match();
+
+            }
         }
     }
 }
