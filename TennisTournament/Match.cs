@@ -14,24 +14,23 @@ namespace TennisTournament
         private bool Bo5 { get; set; }
         private List<Player> SinglePlayers { get; set; }
         private List<Tuple<Player, Player>> DoublePlayers { get; set; }
-        private List<Tuple<int, int>> SetResults { get; set; }
+        public List<Tuple<int, int>> SetResults { get; set; }
         private Referee Referee { get; set; }
         public List<Player> Winner { get; set; }
 
-        public Match(Type matchType, List<Tuple<Player, Player>> doublePlayers, List<Tuple<int, int>> setResults) : this(matchType, setResults)
+        public Match(Type matchType, List<Tuple<Player, Player>> doublePlayers) : this(matchType)
         {
             this.DoublePlayers = doublePlayers;
         }
 
-        public Match(Type matchType, List<Player> singlePlayers, List<Tuple<int, int>> setResults) : this(matchType, setResults)
+        public Match(Type matchType, List<Player> singlePlayers) : this(matchType)
         {
             this.SinglePlayers = singlePlayers;
         }
 
-        public Match(Type matchType, List<Tuple<int, int>> setResults)
+        public Match(Type matchType)
         {
             this.MatchType = matchType;
-            this.SetResults = setResults;
             if (matchType == Type.WSingle || matchType == Type.WDouble)
             {
                 Bo3 = true;

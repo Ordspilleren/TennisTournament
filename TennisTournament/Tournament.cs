@@ -83,5 +83,10 @@ namespace TennisTournament
 
             }
         }
+
+        public void Simulate()
+        {
+
+        }
     }
 }
