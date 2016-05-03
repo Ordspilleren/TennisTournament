@@ -25,6 +25,8 @@ namespace TennisTournament
             this.DateTo = dateTo;
             this.Referees = referees;
             this.Players = players;
+
+            this.Matches = InitializeMatches();
         }
 
         public void AddPlayer(Player player)
@@ -77,11 +79,34 @@ namespace TennisTournament
 
         private List<Match> InitializeMatches()
         {
-            for (int i = 0; i < Players.Count / 2; i += 2)
-            {
-                Match match = new Match();
+            Random rnd = new Random();
+            List<Player> assignedPlayers = new List<Player>();
+            List<Match> matches = new List<Match>();
 
+            while (assignedPlayers.Count < Players.Count)
+            {
+                var player1 = Players[rnd.Next(Players.Count)];
+                var player2 = Players[rnd.Next(Players.Count)];
+                if (!assignedPlayers.Contains(player1) && !assignedPlayers.Contains(player2))
+                {
+                    List<Player> players = new List<Player> { player1, player2 };
+                    assignedPlayers.AddRange(players);
+                    Match match = new Match(Match.Type.MSingle, players);
+                    matches.Add(match);
+                }
             }
+
+            return matches;
+
+
+            //for (int i = 0; i < Players.Count / 2;)
+            //{
+
+            //    List<Player> players = new List<Player> { Players[rnd.Next(Players.Count)], Players[rnd.Next(Players.Count)] };
+            //    assignedPlayers.AddRange(players);
+            //    Match match = new Match();
+            //    i++;
+            //}
         }
 
         public void Simulate()

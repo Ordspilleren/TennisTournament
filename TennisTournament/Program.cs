@@ -19,24 +19,38 @@ namespace TennisTournament
             Player jens = new Player("Jens", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
             Player karl = new Player("Karl", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
 
+            Referee lel = new Referee("Lars", "Middlename", "Lel", DateTime.Now, "Danish", Gender.Male, DateTime.Now, DateTime.Now);
+            List<Referee> refs = new List<Referee> { lel };
+
+            List<Player> tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, karl };
+            Tournament tournament = new Tournament("Test", DateTime.Now, DateTime.Now, DateTime.Now, refs, tournament1Players);
+
+            foreach (Match match in tournament.Matches)
+            {
+                foreach (Player player in match.SinglePlayers)
+                {
+                    Console.WriteLine(player.FirstName);
+                }
+            }
+
             //List<Player> tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, karl };
             //Tournament tournament1 = new Tournament(tournament1Players);
 
-            var gamePlayers = new List<Tuple<Player, Player>>();
-            gamePlayers.Add(new Tuple<Player, Player>(henning, karsten));
-            gamePlayers.Add(new Tuple<Player, Player>(gert, karl));
-            var sets = new List<Tuple<int, int>>();
-            sets.Add(new Tuple<int, int>(6, 2));
-            sets.Add(new Tuple<int, int>(3, 6));
-            sets.Add(new Tuple<int, int>(5, 6));
+            //var gamePlayers = new List<Tuple<Player, Player>>();
+            //gamePlayers.Add(new Tuple<Player, Player>(henning, karsten));
+            //gamePlayers.Add(new Tuple<Player, Player>(gert, karl));
+            //var sets = new List<Tuple<int, int>>();
+            //sets.Add(new Tuple<int, int>(6, 2));
+            //sets.Add(new Tuple<int, int>(3, 6));
+            //sets.Add(new Tuple<int, int>(5, 6));
 
-            Match match = new Match(Match.Type.MDouble, gamePlayers, sets);
-            Console.WriteLine(match.ValidateType());
+            //Match match = new Match(Match.Type.MDouble, gamePlayers, sets);
+            //Console.WriteLine(match.ValidateType());
 
-            foreach (Player player in match.GetWinner())
-            {
-                Console.WriteLine(player.FirstName);
-            }
+            //foreach (Player player in match.GetWinner())
+            //{
+            //    Console.WriteLine(player.FirstName);
+            //}
         }
     }
 }
