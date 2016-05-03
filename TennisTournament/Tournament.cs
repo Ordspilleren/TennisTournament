@@ -15,7 +15,8 @@ namespace TennisTournament
         private List<Referee> Referees { get; set; }
         private List<Player> Players { get; set; }
         private Referee GameMaster { get; set; }
-        private List<Match> Matches { get; set; }
+        public List<Match> Matches { get; private set; }
+        public List<Player> Winner { get; private set; }
 
         public Tournament(string name, DateTime year, DateTime dateFrom, DateTime dateTo, List<Referee> referees, List<Player> players)
         {
@@ -25,8 +26,6 @@ namespace TennisTournament
             this.DateTo = dateTo;
             this.Referees = referees;
             this.Players = players;
-
-            this.Matches = InitializeMatches();
         }
 
         public void AddPlayer(Player player)
@@ -65,33 +64,25 @@ namespace TennisTournament
 
         public List<Player> ListPlayers(bool firstName = true)
         {
-            List<Player> sortedPlayers;
-            if (firstName)
-            {
-                sortedPlayers = Players.OrderBy(x => x.FirstName).ToList();
-            } else
-            {
-                sortedPlayers = Players.OrderBy(x => x.LastName).ToList();
-            }
+            var sortedPlayers = firstName ? Players.OrderBy(x => x.FirstName).ToList() : Players.OrderBy(x => x.LastName).ToList();
 
             return sortedPlayers;
         }
 
-        private List<Match> InitializeMatches()
+        private List<Match> InitializeMatches(List<Player> matchPlayers)
         {
-            Random rnd = new Random();
-            List<Player> assignedPlayers = new List<Player>();
-            List<Match> matches = new List<Match>();
-
-            while (assignedPlayers.Count < Players.Count)
+            var rnd = new Random();
+            var assignedPlayers = new List<Player>();
+            var matches = new List<Match>();
+            while (assignedPlayers.Count < matchPlayers.Count)
             {
-                var player1 = Players[rnd.Next(Players.Count)];
-                var player2 = Players[rnd.Next(Players.Count)];
+                var player1 = matchPlayers[rnd.Next(matchPlayers.Count)];
+                var player2 = matchPlayers[rnd.Next(matchPlayers.Count)];
                 if (!assignedPlayers.Contains(player1) && !assignedPlayers.Contains(player2))
                 {
-                    List<Player> players = new List<Player> { player1, player2 };
+                    var players = new List<Player> { player1, player2 };
                     assignedPlayers.AddRange(players);
-                    Match match = new Match(Match.Type.MSingle, players);
+                    var match = new Match(Match.Type.MSingle, players);
                     matches.Add(match);
                 }
             }
@@ -111,7 +102,27 @@ namespace TennisTournament
 
         public void Simulate()
         {
+            var currentPlayers = new List<Player>();
+            var currentMatches = new List<Match>();
+            Matches = new List<Match>();
+            Winner = new List<Player>();
+            currentPlayers = Players;
 
+            while (currentPlayers.Count > 1)
+            {
+                var initializedMatches = InitializeMatches(currentPlayers);
+                Matches.AddRange(initializedMatches);
+                currentMatches.AddRange(initializedMatches);
+                currentPlayers.Clear();
+                foreach (var match in currentMatches)
+                {
+                    match.Play();
+                    currentPlayers.AddRange(match.Winner);
+                }
+                currentMatches.Clear();
+            }
+
+            Winner.AddRange(currentPlayers);
         }
     }
 }

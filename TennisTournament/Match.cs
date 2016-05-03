@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +15,9 @@ namespace TennisTournament
         private bool Bo5 { get; set; }
         private List<Player> SinglePlayers { get; set; }
         private List<Tuple<Player, Player>> DoublePlayers { get; set; }
-        public List<Tuple<int, int>> SetResults { get; set; }
+        public List<Tuple<int, int>> SetResults { get; private set; }
         private Referee Referee { get; set; }
-        public List<Player> Winner { get; set; }
+        public List<Player> Winner { get; private set; }
 
         public Match(Type matchType, List<Tuple<Player, Player>> doublePlayers) : this(matchType)
         {
@@ -38,6 +39,41 @@ namespace TennisTournament
             {
                 Bo5 = true;
             }
+        }
+
+        public void Play()
+        {
+            SetResults = new List<Tuple<int, int>>();
+            Winner = new List<Player>();
+            var player1SetsWon = 0;
+            var player2SetsWon = 0;
+            var rnd = new Random();
+
+            if (Bo3)
+            {
+                while (player1SetsWon + player2SetsWon < 3)
+                {
+                    var player1Score = rnd.Next(1, 7);
+                    var player2Score = rnd.Next(1, 7);
+
+                    if (player1Score > player2Score)
+                    {
+                        player1SetsWon++;
+                    }
+                    else
+                    {
+                        player2SetsWon++;
+                    }
+                    var result = new Tuple<int, int>(player1Score, player2Score);
+                    SetResults.Add(result);
+                }
+            }
+            else
+            {
+                
+            }
+
+            Winner.Add(player1SetsWon > player2SetsWon ? SinglePlayers[0] : SinglePlayers[1]);
         }
 
         public List<Player> GetWinner()

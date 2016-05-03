@@ -10,27 +10,29 @@ namespace TennisTournament
     {
         static void Main(string[] args)
         {
-            Player henning = new Player("Henning", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            Player karsten = new Player("Karsten", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            Player gert = new Player("Gert", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            Player trine = new Player("Trine", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
-            Player hanne = new Player("Hanne", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
-            Player karoline = new Player("Karoline", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
-            Player jens = new Player("Jens", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            Player karl = new Player("Karl", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
+            var henning = new Player("Henning", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
+            var karsten = new Player("Karsten", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
+            var gert = new Player("Gert", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
+            var trine = new Player("Trine", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
+            var hanne = new Player("Hanne", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
+            var karoline = new Player("Karoline", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
+            var jens = new Player("Jens", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
+            var karl = new Player("Karl", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
 
-            Referee lel = new Referee("Lars", "Middlename", "Lel", DateTime.Now, "Danish", Gender.Male, DateTime.Now, DateTime.Now);
-            List<Referee> refs = new List<Referee> { lel };
+            var lel = new Referee("Lars", "Middlename", "Lel", DateTime.Now, "Danish", Gender.Male, DateTime.Now, DateTime.Now);
+            var refs = new List<Referee> { lel };
 
-            List<Player> tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, karl };
-            Tournament tournament = new Tournament("Test", DateTime.Now, DateTime.Now, DateTime.Now, refs, tournament1Players);
+            var tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, karl };
+            var tournament = new Tournament("Test", DateTime.Now, DateTime.Now, DateTime.Now, refs, tournament1Players);
 
-            foreach (Match match in tournament.Matches)
+            tournament.Simulate();
+            Console.WriteLine(tournament.Winner[0].FirstName);
+
+            // SetResults are not printed properly for some reason
+            foreach (var match in tournament.Matches)
             {
-                foreach (Player player in match.SinglePlayers)
-                {
-                    Console.WriteLine(player.FirstName);
-                }
+                var setresults = match.SetResults;
+                Console.WriteLine(setresults[0].Item1);
             }
 
             //List<Player> tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, karl };
