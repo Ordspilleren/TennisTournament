@@ -31,9 +31,14 @@ namespace TennisTournament
             // SetResults are not printed properly for some reason
             foreach (var match in tournament.Matches)
             {
-                var setresults = match.SetResults;
-                Console.WriteLine(setresults[0].Item1);
+                Console.WriteLine(match.Winner[0].FirstName);
+                foreach (var result in match.SetResults)
+                {
+                    Console.WriteLine(result.Item1 + ":" + result.Item2);
+                }
             }
+
+            Console.ReadKey();
 
             //List<Player> tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, karl };
             //Tournament tournament1 = new Tournament(tournament1Players);

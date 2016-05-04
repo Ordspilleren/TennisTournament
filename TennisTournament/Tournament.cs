@@ -82,7 +82,7 @@ namespace TennisTournament
                 {
                     var players = new List<Player> { player1, player2 };
                     assignedPlayers.AddRange(players);
-                    var match = new Match(Match.Type.MSingle, players);
+                    var match = new Match(Match.Type.WSingle, players);
                     matches.Add(match);
                 }
             }

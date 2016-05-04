@@ -47,7 +47,8 @@ namespace TennisTournament
             Winner = new List<Player>();
             var player1SetsWon = 0;
             var player2SetsWon = 0;
-            var rnd = new Random();
+            // A custom seed is used here to avoid results being the same across sets (default Random class uses DateTime.now which is not good enough)
+            var rnd = new Random(Guid.NewGuid().GetHashCode());
 
             if (Bo3)
             {
@@ -55,17 +56,18 @@ namespace TennisTournament
                 {
                     var player1Score = rnd.Next(1, 7);
                     var player2Score = rnd.Next(1, 7);
+                    var result = new Tuple<int, int>(player1Score, player2Score);
 
-                    if (player1Score > player2Score)
+                    if ((player1Score == 6) && (player2Score < 6))
                     {
                         player1SetsWon++;
+                        SetResults.Add(result);
                     }
-                    else
+                    else if ((player2Score == 6) && (player1Score < 6))
                     {
                         player2SetsWon++;
+                        SetResults.Add(result);
                     }
-                    var result = new Tuple<int, int>(player1Score, player2Score);
-                    SetResults.Add(result);
                 }
             }
             else
