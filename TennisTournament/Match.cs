@@ -13,6 +13,7 @@ namespace TennisTournament
         private Type MatchType { get; set; }
         private bool Bo3 { get; set; }
         private bool Bo5 { get; set; }
+        private int Sets { get; set; }
         private List<Player> SinglePlayers { get; set; }
         private List<Tuple<Player, Player>> DoublePlayers { get; set; }
         public List<Tuple<int, int>> SetResults { get; private set; }
@@ -35,9 +36,11 @@ namespace TennisTournament
             if (matchType == Type.WSingle || matchType == Type.WDouble)
             {
                 Bo3 = true;
+                Sets = 3;
             } else
             {
                 Bo5 = true;
+                Sets = 5;
             }
         }
 
@@ -45,34 +48,29 @@ namespace TennisTournament
         {
             SetResults = new List<Tuple<int, int>>();
             Winner = new List<Player>();
-            var player1SetsWon = 0;
-            var player2SetsWon = 0;
+            
             // A custom seed is used here to avoid results being the same across sets (default Random class uses DateTime.now which is not good enough)
             var rnd = new Random(Guid.NewGuid().GetHashCode());
 
-            if (Bo3)
+            var player1SetsWon = 0;
+            var player2SetsWon = 0;
+            
+            while ((player1SetsWon + player2SetsWon < Sets) && (player1SetsWon < 3) && (player2SetsWon < 3))
             {
-                while (player1SetsWon + player2SetsWon < 3)
-                {
-                    var player1Score = rnd.Next(1, 7);
-                    var player2Score = rnd.Next(1, 7);
-                    var result = new Tuple<int, int>(player1Score, player2Score);
+                var player1Score = rnd.Next(1, 7);
+                var player2Score = rnd.Next(1, 7);
+                var result = new Tuple<int, int>(player1Score, player2Score);
 
-                    if ((player1Score == 6) && (player2Score < 6))
-                    {
-                        player1SetsWon++;
-                        SetResults.Add(result);
-                    }
-                    else if ((player2Score == 6) && (player1Score < 6))
-                    {
-                        player2SetsWon++;
-                        SetResults.Add(result);
-                    }
+                if ((player1Score == 6) && (player2Score < 6))
+                {
+                    player1SetsWon++;
+                    SetResults.Add(result);
                 }
-            }
-            else
-            {
-                
+                else if ((player2Score == 6) && (player1Score < 6))
+                {
+                    player2SetsWon++;
+                    SetResults.Add(result);
+                }
             }
 
             Winner.Add(player1SetsWon > player2SetsWon ? SinglePlayers[0] : SinglePlayers[1]);
