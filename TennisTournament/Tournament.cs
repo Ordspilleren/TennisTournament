@@ -13,35 +13,64 @@ namespace TennisTournament
         private DateTime DateFrom { get; set; }
         private DateTime DateTo { get; set; }
         private List<Referee> Referees { get; set; }
-        private List<Player> Players { get; set; }
+        //private List<Player> Players { get; set; }
+        private List<Team> Teams { get; set; }
         private Referee GameMaster { get; set; }
         public List<Match> Matches { get; private set; }
-        public List<Player> Winner { get; private set; }
+        public Team Winner { get; private set; }
 
-        public Tournament(string name, DateTime year, DateTime dateFrom, DateTime dateTo, List<Referee> referees, List<Player> players)
+        public Tournament(string name, DateTime year, DateTime dateFrom, DateTime dateTo)
         {
             this.Name = name;
             this.Year = Year;
             this.DateFrom = dateFrom;
             this.DateTo = dateTo;
-            this.Referees = referees;
-            this.Players = players;
+            //this.Referees = referees;
+            //this.Teams = teams;
+            Teams = new List<Team>();
+            Referees = new List<Referee>();
         }
 
-        public void AddPlayer(Player player)
+        public void AddPlayers(Player player)
         {
-            Players.Add(player);
+            Teams.Add(new Team(player));
         }
 
-        public void RemovePlayer(Player player)
+        public void AddPlayers(Player player1, Player player2)
         {
-            //var item = Players.Find(x => x.FirstName == player.FirstName && x.MiddleName == player.MiddleName && x.LastName == player.LastName);
-            Players.Remove(player);
+            Teams.Add(new Team(player1, player2));
         }
 
-        public void AddReferee(Referee referee)
+        public void AddPlayers(List<Player> players)
+        {
+            foreach (var player in players)
+            {
+                Teams.Add(new Team(player));
+            }
+        }
+
+        public void AddPlayers(List<Tuple<Player, Player>> players)
+        {
+            foreach (var team in players)
+            {
+                Teams.Add(new Team(team.Item1, team.Item2));
+            }
+        }
+
+        //public void RemovePlayer(Player player)
+        //{
+        //    //var item = Players.Find(x => x.FirstName == player.FirstName && x.MiddleName == player.MiddleName && x.LastName == player.LastName);
+        //    Players.Remove(player);
+        //}
+
+        public void AddReferees(Referee referee)
         {
             Referees.Add(referee);
+        }
+
+        public void AddReferees(List<Referee> referees)
+        {
+            Referees.AddRange(referees);
         }
 
         public void RemoveReferee(Referee referee)
@@ -62,27 +91,28 @@ namespace TennisTournament
             }
         }
 
-        public List<Player> ListPlayers(bool firstName = true)
-        {
-            var sortedPlayers = firstName ? Players.OrderBy(x => x.FirstName).ToList() : Players.OrderBy(x => x.LastName).ToList();
+        //public List<Player> ListPlayers(bool firstName = true)
+        //{
+        //    var sortedPlayers = firstName ? Players.OrderBy(x => x.FirstName).ToList() : Players.OrderBy(x => x.LastName).ToList();
 
-            return sortedPlayers;
-        }
+        //    return sortedPlayers;
+        //}
 
-        private List<Match> InitializeMatches(List<Player> matchPlayers)
+        private List<Match> InitializeMatches(List<Team> teams)
         {
             var rnd = new Random();
-            var assignedPlayers = new List<Player>();
+            var assignedTeams = new List<Team>();
             var matches = new List<Match>();
-            while (assignedPlayers.Count < matchPlayers.Count)
+            while (assignedTeams.Count < teams.Count)
             {
-                var player1 = matchPlayers[rnd.Next(matchPlayers.Count)];
-                var player2 = matchPlayers[rnd.Next(matchPlayers.Count)];
-                if (!assignedPlayers.Contains(player1) && !assignedPlayers.Contains(player2))
+                var team1 = teams[rnd.Next(teams.Count)];
+                var team2 = teams[rnd.Next(teams.Count)];
+                var match = new Match(team1, team2);
+                if (!assignedTeams.Contains(team1) && !assignedTeams.Contains(team2) && match.IsValid())
                 {
-                    var players = new List<Player> { player1, player2 };
-                    assignedPlayers.AddRange(players);
-                    var match = new Match(Match.Type.WSingle, players);
+                    //var players = new List<Player> { team1, team2 };
+                    assignedTeams.Add(team1);
+                    assignedTeams.Add(team2);
                     matches.Add(match);
                 }
             }
@@ -102,27 +132,27 @@ namespace TennisTournament
 
         public void Simulate()
         {
-            var currentPlayers = new List<Player>();
+            var currentTeams = new List<Team>();
             var currentMatches = new List<Match>();
             Matches = new List<Match>();
-            Winner = new List<Player>();
-            currentPlayers = Players;
+            //Winner = new List<Player>();
+            currentTeams = Teams;
 
-            while (currentPlayers.Count > 1)
+            while (currentTeams.Count > 1)
             {
-                var initializedMatches = InitializeMatches(currentPlayers);
+                var initializedMatches = InitializeMatches(currentTeams);
                 Matches.AddRange(initializedMatches);
                 currentMatches.AddRange(initializedMatches);
-                currentPlayers.Clear();
+                currentTeams.Clear();
                 foreach (var match in currentMatches)
                 {
                     match.Play();
-                    currentPlayers.AddRange(match.Winner);
+                    currentTeams.Add(match.Winner);
                 }
                 currentMatches.Clear();
             }
 
-            Winner.AddRange(currentPlayers);
+            Winner = currentTeams[0];
         }
     }
 }

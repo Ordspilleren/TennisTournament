@@ -14,26 +14,20 @@ namespace TennisTournament
         private bool Bo3 { get; set; }
         private bool Bo5 { get; set; }
         private int Sets { get; set; }
-        private List<Player> SinglePlayers { get; set; }
-        private List<Tuple<Player, Player>> DoublePlayers { get; set; }
+        private Team Team1 { get; set; }
+        private Team Team2 { get; set; }
+        // SetResults should probably be a dictionary with team and score instead
         public List<Tuple<int, int>> SetResults { get; private set; }
         private Referee Referee { get; set; }
-        public List<Player> Winner { get; private set; }
+        public Team Winner { get; private set; }
 
-        public Match(Type matchType, List<Tuple<Player, Player>> doublePlayers) : this(matchType)
+        public Match(Team team1, Team team2)
         {
-            this.DoublePlayers = doublePlayers;
-        }
+            //this.MatchType = matchType;
+            Team1 = team1;
+            Team2 = team2;
 
-        public Match(Type matchType, List<Player> singlePlayers) : this(matchType)
-        {
-            this.SinglePlayers = singlePlayers;
-        }
-
-        public Match(Type matchType)
-        {
-            this.MatchType = matchType;
-            if (matchType == Type.WSingle || matchType == Type.WDouble)
+            if (MatchType == Type.WSingle || MatchType == Type.WDouble)
             {
                 Bo3 = true;
                 Sets = 3;
@@ -46,71 +40,75 @@ namespace TennisTournament
 
         public void Play()
         {
+            if (!IsValid())
+            {
+                throw new ArgumentException("The team composition that was input does not allow for a valid match. Match cannot be played.");
+            }
+
             SetResults = new List<Tuple<int, int>>();
-            Winner = new List<Player>();
             
             // A custom seed is used here to avoid results being the same across sets (default Random class uses DateTime.now which is not good enough)
             var rnd = new Random(Guid.NewGuid().GetHashCode());
 
-            var player1SetsWon = 0;
-            var player2SetsWon = 0;
+            var team1SetsWon = 0;
+            var team2SetsWon = 0;
             
-            while ((player1SetsWon + player2SetsWon < Sets) && (player1SetsWon < 3) && (player2SetsWon < 3))
+            while ((team1SetsWon + team2SetsWon < Sets) && (team1SetsWon < 3) && (team2SetsWon < 3))
             {
-                var player1Score = rnd.Next(1, 7);
-                var player2Score = rnd.Next(1, 7);
-                var result = new Tuple<int, int>(player1Score, player2Score);
+                var team1Score = rnd.Next(1, 7);
+                var team2Score = rnd.Next(1, 7);
+                var result = new Tuple<int, int>(team1Score, team2Score);
 
-                if ((player1Score == 6) && (player2Score < 6))
+                if ((team1Score == 6) && (team2Score < 6))
                 {
-                    player1SetsWon++;
+                    team1SetsWon++;
                     SetResults.Add(result);
                 }
-                else if ((player2Score == 6) && (player1Score < 6))
+                else if ((team2Score == 6) && (team1Score < 6))
                 {
-                    player2SetsWon++;
+                    team2SetsWon++;
                     SetResults.Add(result);
                 }
             }
 
-            Winner.Add(player1SetsWon > player2SetsWon ? SinglePlayers[0] : SinglePlayers[1]);
+            Winner = (team1SetsWon > team2SetsWon ? Team1 : Team2);
         }
 
-        public List<Player> GetWinner()
-        {
-            int player1SetsWon = 0;
-            int player2SetsWon = 0;
-            foreach (var set in SetResults)
-            {
-                if (set.Item1 == 6 && set.Item2 <= 5)
-                {
-                    player1SetsWon++;
-                } else
-                {
-                    player2SetsWon++;
-                }
-            }
+        //public List<Player> GetWinner()
+        //{
+        //    int player1SetsWon = 0;
+        //    int player2SetsWon = 0;
+        //    foreach (var set in SetResults)
+        //    {
+        //        if (set.Item1 == 6 && set.Item2 <= 5)
+        //        {
+        //            player1SetsWon++;
+        //        } else
+        //        {
+        //            player2SetsWon++;
+        //        }
+        //    }
 
-            if (MatchType == Type.MSingle || MatchType == Type.WSingle)
-            {
-                if (player1SetsWon > player2SetsWon)
-                {
-                    return new List<Player> { SinglePlayers[0] };
-                } else
-                {
-                    return new List<Player> { SinglePlayers[1] };
-                }
-            } else
-            {
-                if (player1SetsWon > player2SetsWon)
-                {
-                    return new List<Player> { DoublePlayers[0].Item1, DoublePlayers[0].Item2 };
-                } else
-                {
-                    return new List<Player> { DoublePlayers[1].Item1, DoublePlayers[1].Item2 };
-                }
-            }
-        }
+        //    if (MatchType == Type.MSingle || MatchType == Type.WSingle)
+        //    {
+        //        if (player1SetsWon > player2SetsWon)
+        //        {
+        //            return new List<Player> { SinglePlayers[0] };
+        //        } else
+        //        {
+        //            return new List<Player> { SinglePlayers[1] };
+        //        }
+        //    } else
+        //    {
+        //        if (player1SetsWon > player2SetsWon)
+        //        {
+        //            return new List<Player> { DoublePlayers[0].Item1, DoublePlayers[0].Item2 };
+        //        } else
+        //        {
+        //            return new List<Player> { DoublePlayers[1].Item1, DoublePlayers[1].Item2 };
+        //        }
+        //    }
+        //}
 
         // Needs to be refined to support sets > actual sets played
         public int SetsPlayed()
@@ -128,16 +126,41 @@ namespace TennisTournament
             this.Referee = null;
         }
 
-        public bool ValidateType()
+        public bool IsValid()
         {
-            if (MatchType == Type.MSingle)
+            var result = false;
+            if (Team1.IsDouble && Team2.IsDouble)
             {
-                return (SinglePlayers[0].Gender == Gender.Male && SinglePlayers[1].Gender == Gender.Male);
-            } else if (MatchType == Type.MDouble)
-            {
-                return ((DoublePlayers[0].Item1.Gender == Gender.Male && DoublePlayers[0].Item2.Gender == Gender.Male) && (DoublePlayers[1].Item1.Gender == Gender.Male && DoublePlayers[1].Item2.Gender == Gender.Male));
+                if ((Team1.Player1.Gender == Gender.Female && Team1.Player2.Gender == Gender.Female) && (Team2.Player1.Gender == Gender.Female && Team2.Player2.Gender == Gender.Female))
+                {
+                    MatchType = Type.WDouble;
+                    result = true;
+                }
+                else if ((Team1.Player1.Gender == Gender.Male && Team1.Player2.Gender == Gender.Male) && (Team2.Player1.Gender == Gender.Male && Team2.Player2.Gender == Gender.Male))
+                {
+                    MatchType = Type.MDouble;
+                    result = true;
+                }
+                else if ((Team1.Player1.Gender != Team1.Player2.Gender) && (Team2.Player1.Gender !=  Team2.Player2.Gender))
+                {
+                    MatchType = Type.MixDouble;
+                    result = true;
+                }
             }
-            return false;
+            else if (!Team1.IsDouble && !Team2.IsDouble)
+            {
+                if (Team1.Player1.Gender == Gender.Female && Team2.Player1.Gender == Gender.Female)
+                {
+                    MatchType = Type.WSingle;
+                    result = true;
+                }
+                else if (Team1.Player1.Gender == Gender.Male && Team2.Player1.Gender == Gender.Male)
+                {
+                    MatchType = Type.MSingle;
+                    result = true;
+                }
+            }
+            return result;
         }
     }
 }
