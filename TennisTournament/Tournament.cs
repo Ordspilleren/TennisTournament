@@ -91,6 +91,7 @@ namespace TennisTournament
             }
         }
 
+        // TODO: ListPlayers should be remade to support teams
         //public List<Player> ListPlayers(bool firstName = true)
         //{
         //    var sortedPlayers = firstName ? Players.OrderBy(x => x.FirstName).ToList() : Players.OrderBy(x => x.LastName).ToList();
@@ -130,6 +131,9 @@ namespace TennisTournament
             //}
         }
 
+        // TODO: Check if all conditions for simulation are met eg. GameMaster is set and number of players (teams) is either 8, 16, 32 or 64
+        // TODO: Possibly add a round counter and a round integer to Matches. This way there can be kept track of which round a match was played in.
+        // TODO: Simulation should also support both double and single games. Generate two winners maybe?
         public void Simulate()
         {
             var currentTeams = new List<Team>();

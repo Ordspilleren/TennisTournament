@@ -10,7 +10,7 @@ namespace TennisTournament
     class Match
     {
         public enum Type { WSingle, MSingle, WDouble, MDouble, MixDouble }
-        private Type MatchType { get; set; }
+        public Type MatchType { get; private set; }
         private bool Bo3 { get; set; }
         private bool Bo5 { get; set; }
         private int Sets { get; set; }
@@ -27,7 +27,7 @@ namespace TennisTournament
             Team1 = team1;
             Team2 = team2;
 
-            if (MatchType == Type.WSingle || MatchType == Type.WDouble)
+            if (IsValid() && (MatchType == Type.WSingle || MatchType == Type.WDouble))
             {
                 Bo3 = true;
                 Sets = 3;

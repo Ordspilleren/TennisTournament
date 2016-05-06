@@ -8,6 +8,10 @@ namespace TennisTournament
 {
     class Program
     {
+        // TODO: Add interface to start simulation, add players etc.
+        // TODO: Revise access modifiers (private, protected, public)
+        // TODO: Generics
+        // TODO: Read players and refs from files
         static void Main(string[] args)
         {
             var henning = new Player("Henning", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
@@ -34,6 +38,7 @@ namespace TennisTournament
             foreach (var match in tournament.Matches)
             {
                 Console.WriteLine(match.Winner.Player1.FirstName);
+                Console.WriteLine(match.MatchType);
                 foreach (var result in match.SetResults)
                 {
                     Console.WriteLine(result.Item1 + ":" + result.Item2);
@@ -41,25 +46,6 @@ namespace TennisTournament
             }
 
             Console.ReadKey();
-
-            //List<Player> tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, karl };
-            //Tournament tournament1 = new Tournament(tournament1Players);
-
-            //var gamePlayers = new List<Tuple<Player, Player>>();
-            //gamePlayers.Add(new Tuple<Player, Player>(henning, karsten));
-            //gamePlayers.Add(new Tuple<Player, Player>(gert, karl));
-            //var sets = new List<Tuple<int, int>>();
-            //sets.Add(new Tuple<int, int>(6, 2));
-            //sets.Add(new Tuple<int, int>(3, 6));
-            //sets.Add(new Tuple<int, int>(5, 6));
-
-            //Match match = new Match(Match.Type.MDouble, gamePlayers, sets);
-            //Console.WriteLine(match.ValidateType());
-
-            //foreach (Player player in match.GetWinner())
-            //{
-            //    Console.WriteLine(player.FirstName);
-            //}
         }
     }
 }
