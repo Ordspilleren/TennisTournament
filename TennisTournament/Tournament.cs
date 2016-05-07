@@ -94,14 +94,24 @@ namespace TennisTournament
             }
         }
 
-        // TODO: ListPlayers should be remade to support teams
-        //public List<Player> ListPlayers(bool firstName = true)
-        //{
-        //    var sortedPlayers = firstName ? Players.OrderBy(x => x.FirstName).ToList() : Players.OrderBy(x => x.LastName).ToList();
+        public List<Player> ListPlayers(bool firstName = true)
+        {
+            var players = new List<Player>();
+            foreach (var team in Teams)
+            {
+                players.Add(team.Player1);
 
-        //    return sortedPlayers;
-        //}
+                if (team.IsDouble)
+                {
+                    players.Add(team.Player2);
+                }
+            }
+            var sortedPlayers = firstName ? players.OrderBy(x => x.FirstName).ToList() : players.OrderBy(x => x.LastName).ToList();
 
+            return sortedPlayers;
+        }
+
+        // TODO: A referee should be assigned each match
         private List<Match> InitializeMatches(List<Team> teams)
         {
             var rnd = new Random();

@@ -1,0 +1,100 @@
+1|Mariuss|Luka|Thygesen|1986-07-25|NAURU|NR
+2|Namo|Robbert|Bruun|1985-09-13|BARBADOS|BB
+3|Goi|Moamel|Jakobsen|1990-03-21|BRAZIL|BR
+4|Shivesh|Nghia|Lind|1989-03-27|JAPAN|JP
+5|Cobra|Dek|Møller|1989-06-29|BANGLADESH|BD
+6|Micah|Connor|Lind|1986-08-14|CYPRUS|CY
+7|Joeri|Gehrt|Jacobsen|1994-09-22|GEORGIA|GE
+8|Roall|Ceejay|Lind|1987-04-03|BURKINA FASO|BF
+9|Raphael|Torvil|Lorenzen|1989-08-11|UKRAINE|UA
+10|Gerulf|Uhuru|Henriksen|1993-12-05|RWANDA|RW
+11|Mithuson|Okai|Lange|1995-10-21|VIRGIN ISLANDS, BRITISH|VG
+12|Farzad|Nedal|Damgård|1990-10-04|SAMOA|WS
+13|Alborz|Ismet|Lind|1991-12-30|AUSTRIA|AT
+14|Naser|Steff|Kjærgaard|1987-09-20|BRITISH INDIAN OCEAN TERRITORY|IO
+15|Kristar|Ramesis|Karlsen|1994-11-20|HEARD AND MCDONALD ISLANDS|HM
+16|Robin|Aris|Juul|1986-06-20|AFGHANISTAN|AF
+17|Egbert|Fredie|Nissen|1987-09-23|BOUVET ISLAND|BV
+18|Honer|Hedin|Østergård|1988-10-13|TANZANIA, UNITED REPUBLIC OF|TZ
+19|Rigo|Randy|Hald|1997-05-20|MARTINIQUE|MQ
+20|Darnell|Loran|Sommer|1987-04-19|FRENCH SOUTHERN TERRITORIES|TF
+21|Yunus|Winston|Bech|1990-09-19|NAMIBIA|NA
+22|Ednan|Ender|Steffensen|1989-07-14|SAMOA|WS
+23|Emannuel|Klaudius|Pedersen|1996-05-15|BERMUDA|BM
+24|Asadallah|Rias|Jakobsen|1992-02-02|GUYANA|GY
+25|Tiger|Bartolin|Bak|1994-08-19|UKRAINE|UA
+26|Jokum|Thaarekan|Johannesen|1992-08-23|TANZANIA, UNITED REPUBLIC OF|TZ
+27|Eyvin|Krei|Lauritsen|1986-03-27|UNITED STATES|US
+28|Nedim|Junas|Nguyen|1989-06-08|SAINT PIERRE AND MIQUELON|PM
+29|Henok|Erlind|Eriksen|1987-12-14|ANTARCTICA|AQ
+30|Stiig|Shady|Hoffmann|1987-12-22|UNITED STATES|US
+31|Yngwie|Reimert|Müller|1997-06-03|MARSHALL ISLANDS|MH
+32|Corfitz|Gandalf|Mølgård|1997-06-12|MALTA|MT
+33|Gorm|Ulaano|Sørensen|1992-07-23|UNITED STATES MINOR OUTLYING ISLANDS|UM
+34|Maxwell|Satria|Holm|1994-01-09|TAJIKISTAN|TJ
+35|Evan|Ulfur|Krog|1995-02-09|SIERRA LEONE|SL
+36|Hao|Javier|Thøgersen|1996-10-08|VIET NAM|VN
+37|Valder|Uffo|Lauritzen|1993-03-10|ITALY|IT
+38|Mateo|Regnvald|Andreasen|1993-09-28|MALAYSIA|MY
+39|Folmar|Karwan|Søgård|1991-03-17|RUSSIAN FEDERATION|RU
+40|Made|Robby|Laursen|1994-03-17|SUDAN|SD
+41|Jaymark|Cem|Bisgård|1989-02-13|BRAZIL|BR
+42|Günter|Yannik|Jespersen|1995-01-20|JORDAN|JO
+43|Tian|Ethan|Dalsgård|1991-09-11|AZERBAIJAN|AZ
+44|Gin|Arif|Jensen|1987-04-14|TUNISIA|TN
+45|Laur|Heman|Andreasen|1991-11-04|GREENLAND|GL
+46|Abdiqadir|Mervyn|Schultz|1993-10-10|PAPUA NEW GUINEA|PG
+47|Asmund|Annæus|Nørgaard|1988-09-18|VIET NAM|VN
+48|Mishal|Pedro|Johannsen|1991-12-07|PAPUA NEW GUINEA|PG
+49|Ove|Rukan|Johnsen|1987-04-27|KUWAIT|KW
+50|Kean|Jarnis|Ahmed|1987-02-26|BERMUDA|BM
+51|Faruk|Frédéric|Frandsen|1994-06-03|PAKISTAN|PK
+52|Steve|Pierino|Bjerregård|1986-12-24|CHILE|CL
+53|Dalian|Gandalph|Hedegård|1989-07-27|PANAMA|PA
+54|Ameen|Mensur|Johansson|1994-10-10|SAINT HELENA|SH
+55|Eivin|Ingvar|Eskildsen|1986-06-22|RWANDA|RW
+56|Bobbie|Klemmen|Clausen|1996-03-05|FRENCH GUIANA|GF
+57|Alver|Lusungu|Kjeldsen|1996-05-31|SAO TOME AND PRINCIPE|ST
+58|Zeyd|Supachai|Gregersen|1991-09-03|ANTIGUA AND BARBUDA|AG
+59|Ayaj|Philipp|Nguyen|1991-08-10|BOTSWANA|BW
+60|Zulfiqar|Marwan|Danielsen|1993-04-17|MYANMAR|MM
+61|Arne|Algot|Bisgaard|1994-02-03|THAILAND|TH
+62|Francis|Erno|Frandsen|1995-03-28|ISLE OF MAN|IM
+63|Klas|Ayub|Bertelsen|1985-09-26|MACAO|MO
+64|Hassib|Tai|Markussen|1997-05-19|BERMUDA|BM
+65|Ilannguaq|Lorens|Aagård|1993-06-21|TURKS AND CAICOS ISLANDS|TC
+66|Lynge|Fuad|Sommer|1988-06-23|UNITED KINGDOM|GB
+67|Snær|Shnos|Dalgaard|1993-01-04|FRENCH GUIANA|GF
+68|Toke|Celal|Søgaard|1985-07-22|AMERICAN SAMOA|AS
+69|Anæus|Mamoudou|Skov|1987-06-20|BENIN|BJ
+70|Juel|Naseem|Madsen|1986-10-15|SVALBARD AND JAN MAYEN|SJ
+71|Per|Aqqaluk|Eskildsen|1995-12-28|MALI|ML
+72|Zilas|Eirik|Iversen|1988-04-02|BANGLADESH|BD
+73|Denni|Frejlif|Bang|1997-02-25|DENMARK|DK
+74|Stephaan|Jaris|Davidsen|1986-08-02|BELARUS|BY
+75|Shimon|Belend|Frandsen|1989-05-27|BOLIVIA|BO
+76|Ken|Shakur|Johnsen|1996-07-08|KUWAIT|KW
+77|Luukas|Niels-Jørn|Kjeldsen|1985-09-03|MICRONESIA|FM
+78|Ivo|Curi|Madsen|1989-10-13|SAINT BARTHÉLEMY|BL
+79|Gøkhan|Abdelmalik|Olesen|1994-07-05|MONGOLIA|MN
+80|Phillipe|Les|Gade|1997-06-13|ANTIGUA AND BARBUDA|AG
+81|Brynje|Hamid|Hougård|1997-02-05|TAJIKISTAN|TJ
+82|Sayid|Ünal|Justesen|1991-04-15|COLOMBIA|CO
+83|Olferth|Yaasir|Buch|1991-05-05|ÅLAND ISLANDS|AX
+84|Philip|Abdillahi|Andreasen|1988-06-08|UGANDA|UG
+85|Elith|Alabdin|Andreasen|1996-04-09|RÉUNION|RE
+86|Robbie|Eskild|Iversen|1993-01-25|KIRIBATI|KI
+87|Sorosh|Bonnik|Dalgård|1988-08-31|FRENCH POLYNESIA|PF
+88|Cristoffer|Eilert|Andersen|1993-09-07|UKRAINE|UA
+89|Odger|Enver|Lorentzen|1986-03-11|MALAWI|MW
+90|Mahmood|Driton|Enevoldsen|1995-03-05|GUINEA|GN
+91|Au|Rezon|Beck|1992-02-22|UNITED STATES MINOR OUTLYING ISLANDS|UM
+92|Ditlev|Tejt|Lange|1989-12-17|BERMUDA|BM
+93|Tewelde|Ruban|Mortensen|1995-12-04|SEYCHELLES|SC
+94|Lars-Christian|Mickel|Svendsen|1988-05-23|GAMBIA|GM
+95|Thorkel|Rued|Brodersen|1994-09-22|GAMBIA|GM
+96|Abdirazaaq|Itamar|Bonde|1993-10-09|TUNISIA|TN
+97|Emmert|Ejlev|Hjorth|1994-11-10|COMOROS|KM
+98|Eduardo|Emanuel|Brandt|1997-08-04|BURKINA FASO|BF
+99|Allon|Jabril|Jepsen|1993-03-16|CÔTE DIVOIRE|CI
+100|Yannis|Kristöfer|Ravn|1986-09-10|GABON|GA

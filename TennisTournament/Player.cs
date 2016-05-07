@@ -8,20 +8,24 @@ namespace TennisTournament
 {
     class Player : IPerson
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public string Nationality { get; set; }
+        public string Country { get; set; }
+        public string CountryCode { get; set; }
         public Gender Gender { get; set; }
 
-        public Player(string firstName, string middleName, string lastName, DateTime birthDate, string nationality, Gender gender)
+        public Player(int id, string firstName, string middleName, string lastName, DateTime birthDate, string country, string countryCode, Gender gender)
         {
+            Id = id;
             this.FirstName = firstName;
             this.MiddleName = middleName;
             this.LastName = lastName;
             this.BirthDate = birthDate;
-            this.Nationality = nationality;
+            this.Country = country;
+            CountryCode = countryCode;
             this.Gender = gender;
         }
 
