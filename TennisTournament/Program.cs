@@ -18,7 +18,7 @@ namespace TennisTournament
             var karsten = new Player("Karsten", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
             var gert = new Player("Gert", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
             var jens = new Player("Jens", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            var lea = new Player("Karl", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
+            var lea = new Player("Lea", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
             var trine = new Player("Trine", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
             var hanne = new Player("Hanne", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
             var karoline = new Player("Karoline", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
@@ -29,10 +29,23 @@ namespace TennisTournament
             var tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, lea };
             var tournament = new Tournament("Test", DateTime.Now, DateTime.Now, DateTime.Now);
             tournament.AddPlayers(tournament1Players);
+            tournament.AddPlayers(henning, lea);
+            tournament.AddPlayers(karoline, jens);
             tournament.AddReferees(refs);
+            tournament.AddGameMaster(lel);
 
-            tournament.Simulate();
-            Console.WriteLine(tournament.Winner.Player1.FirstName);
+            tournament.Simulate(true);
+            tournament.Simulate(false);
+            foreach (var team in tournament.Winner)
+            {
+                Console.WriteLine(team.Player1.FirstName);
+                if (team.IsDouble)
+                {
+                    Console.WriteLine(team.Player2.FirstName);
+                }
+            }
+
+            Console.WriteLine("___________________");
 
             // SetResults are not printed properly for some reason
             foreach (var match in tournament.Matches)

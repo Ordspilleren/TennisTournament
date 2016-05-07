@@ -14,6 +14,7 @@ namespace TennisTournament
         private bool Bo3 { get; set; }
         private bool Bo5 { get; set; }
         private int Sets { get; set; }
+        public bool IsDouble { get; private set; }
         private Team Team1 { get; set; }
         private Team Team2 { get; set; }
         // SetResults should probably be a dictionary with team and score instead
@@ -131,6 +132,7 @@ namespace TennisTournament
             var result = false;
             if (Team1.IsDouble && Team2.IsDouble)
             {
+                IsDouble = true;
                 if ((Team1.Player1.Gender == Gender.Female && Team1.Player2.Gender == Gender.Female) && (Team2.Player1.Gender == Gender.Female && Team2.Player2.Gender == Gender.Female))
                 {
                     MatchType = Type.WDouble;

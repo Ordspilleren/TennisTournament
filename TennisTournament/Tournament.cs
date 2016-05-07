@@ -15,9 +15,10 @@ namespace TennisTournament
         private List<Referee> Referees { get; set; }
         //private List<Player> Players { get; set; }
         private List<Team> Teams { get; set; }
+        private static readonly int[] TeamCount = { 8, 16, 32, 64 };
         private Referee GameMaster { get; set; }
         public List<Match> Matches { get; private set; }
-        public Team Winner { get; private set; }
+        public List<Team> Winner { get; private set; }
 
         public Tournament(string name, DateTime year, DateTime dateFrom, DateTime dateTo)
         {
@@ -29,8 +30,11 @@ namespace TennisTournament
             //this.Teams = teams;
             Teams = new List<Team>();
             Referees = new List<Referee>();
+            Winner = new List<Team>();
+            Matches = new List<Match>();
         }
 
+        // TODO: There should be a check that ensures the total amount of teams is either 8, 16, 32 or 64
         public void AddPlayers(Player player)
         {
             Teams.Add(new Team(player));
@@ -86,8 +90,7 @@ namespace TennisTournament
                 GameMaster = referee;
             } else
             {
-                // Some proper errors should probably be used instead of return
-                return;
+                Console.WriteLine("This referee does not excist in the tournament, and can therefore not be set as Game Master");
             }
         }
 
@@ -131,16 +134,28 @@ namespace TennisTournament
             //}
         }
 
-        // TODO: Check if all conditions for simulation are met eg. GameMaster is set and number of players (teams) is either 8, 16, 32 or 64
         // TODO: Possibly add a round counter and a round integer to Matches. This way there can be kept track of which round a match was played in.
-        // TODO: Simulation should also support both double and single games. Generate two winners maybe?
-        public void Simulate()
+        public void Simulate(bool doubles)
         {
+            if (!TeamCount.Contains(Teams.Count))
+            {
+                Console.WriteLine("There is not an allowed number of teams in the tournament.");
+                return;
+            }
+            if (!Referees.Any())
+            {
+                Console.WriteLine("Please add at least one referee to the tournament");
+                return;
+            }
+            if (GameMaster == null)
+            {
+                Console.WriteLine("A Game Master has not been set.");
+                return;
+            }
+
             var currentTeams = new List<Team>();
             var currentMatches = new List<Match>();
-            Matches = new List<Match>();
-            //Winner = new List<Player>();
-            currentTeams = Teams;
+            currentTeams = doubles ? Teams.Where(team => team.IsDouble).ToList() : Teams.Where(team => !team.IsDouble).ToList();
 
             while (currentTeams.Count > 1)
             {
@@ -156,7 +171,8 @@ namespace TennisTournament
                 currentMatches.Clear();
             }
 
-            Winner = currentTeams[0];
+            //Winner = winnerCount == 1 ? new List<Team>() { currentTeams[0] } : new List<Team>() { currentTeams[0], currentTeams[1] };
+            Winner.Add(currentTeams[0]);
         }
     }
 }
