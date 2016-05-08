@@ -8,22 +8,22 @@ namespace TennisTournament
 {
     class Tournament
     {
-        private string Name { get; set; }
-        private DateTime Year { get; set; }
-        private DateTime DateFrom { get; set; }
-        private DateTime DateTo { get; set; }
+        public string Name { get; private set; }
+        public int Year { get; private set; }
+        public DateTime DateFrom { get; private set; }
+        public DateTime DateTo { get; private set; }
         private List<Referee> Referees { get; set; }
         //private List<Player> Players { get; set; }
-        private List<Team> Teams { get; set; }
+        public List<Team> Teams { get; private set; }
         private static readonly int[] TeamCount = { 8, 16, 32, 64 };
         private Referee GameMaster { get; set; }
         public List<Match> Matches { get; private set; }
         public List<Team> Winner { get; private set; }
 
-        public Tournament(string name, DateTime year, DateTime dateFrom, DateTime dateTo)
+        public Tournament(string name, int year, DateTime dateFrom, DateTime dateTo)
         {
             this.Name = name;
-            this.Year = Year;
+            this.Year = year;
             this.DateFrom = dateFrom;
             this.DateTo = dateTo;
             Teams = new List<Team>();

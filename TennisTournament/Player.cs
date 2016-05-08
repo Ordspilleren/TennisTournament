@@ -35,7 +35,7 @@ namespace TennisTournament
             var now = float.Parse(DateTime.Now.ToString("yyyy.MMdd"));
             var dob = float.Parse(BirthDate.ToString("yyyy.MMdd"));
 
-            return (int)(now - dob);
+            return (int)(now - dob) / 10000;
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Referee.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Tournament.cs" />
+    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -14,55 +14,58 @@ namespace TennisTournament
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
+            var tournaments = new List<Tournament>();
+
+            // NOTE: Not all functionality is implemeted in the UI.
+            // This means that amount of players and the game types of a tournament cannot be set outside of the code.
+            // The order of the player list also cannot be changed in the UI. By default they are listed by first name.
+
+            var ui = new UI();
+            ConsoleKeyInfo cki;
 
             var malePlayers = ReadFiles.GetPlayers(@"data/MalePlayer.txt");
             var femalePlayers = ReadFiles.GetPlayers(@"data/FemalePlayer.txt");
             var allPlayers = malePlayers.Concat(femalePlayers);
             var referees = ReadFiles.GetReferees(@"data/refs.txt", 10);
+            Tournament selectedtournament = null;
 
-            var tournament = new Tournament("Test", DateTime.Now, DateTime.Now, DateTime.Now);
-            PlayerAssignHelper(tournament, allPlayers, GameTypes.Both, 64);
-            tournament.AddReferees(referees);
-            tournament.AddGameMaster(referees[0]);
-
-            foreach (var player in tournament.ListPlayers())
+            do
             {
-                Console.WriteLine(player.FirstName + player.Gender);
-            }
+                ui.DisplayMenu(selectedtournament);
+                cki = Console.ReadKey(true);
 
-            Console.WriteLine("_________________________");
-
-            tournament.Simulate(true);
-            tournament.Simulate(false);
-            foreach (var team in tournament.Winner)
-            {
-                if (!team.IsDouble)
+                switch (cki.KeyChar)
                 {
-                    Console.WriteLine(team.Player1.FirstName);
+                    case '1':
+                        var tournament = ui.CreateTournament();
+                        PlayerAssignHelper(tournament, allPlayers, GameTypes.Both, 8);
+                        tournament.AddReferees(referees);
+                        tournament.AddGameMaster(referees[0]);
+                        tournaments.Add(tournament);
+                        break;
+                    case '2':
+                        ui.ListTournaments(tournaments);
+                        break;
+                    case '3':
+                        Console.WriteLine("Please enter the ID of the tournament that should be selected:");
+                        selectedtournament = tournaments[int.Parse(Console.ReadKey().KeyChar.ToString())-1];
+                        break;
+                    case '4':
+                        selectedtournament.Simulate(true);
+                        selectedtournament.Simulate(false);
+                        Console.WriteLine($"Tournament '{selectedtournament.Name}' has been simulated!");
+                        break;
+                    case '5':
+                        ui.ListWinners(selectedtournament);
+                        break;
+                    case '6':
+                        ui.ListMatches(selectedtournament);
+                        break;
+                    case '7':
+                        ui.ListPlayers(selectedtournament);
+                        break;
                 }
-                else
-                {
-                    Console.WriteLine(team.Player1.FirstName + " AND " + team.Player2.FirstName);
-                }
-            }
-
-            Console.WriteLine("___________________");
-
-            foreach (var match in tournament.Matches)
-            {
-                Console.WriteLine(match.Winner.Player1.FirstName);
-                Console.WriteLine(match.MatchType);
-                Console.WriteLine(match.Referee.FirstName);
-                Console.WriteLine(match.Round);
-                foreach (var result in match.SetResults)
-                {
-                    Console.WriteLine(result.Item1 + ":" + result.Item2);
-                }
-            }
-
-
-
-            Console.ReadKey();
+            } while (cki.Key != ConsoleKey.Escape);
         }
 
         private enum GameTypes { Singles, Doubles, Both }
