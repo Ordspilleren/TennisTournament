@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TennisTournament
 {
-    class Referee : IPerson
+    internal class Referee : IPerson
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -22,15 +22,15 @@ namespace TennisTournament
         public Referee(int id, string firstName, string middleName, string lastName, DateTime birthDate, string country, string countryCode, Gender gender, DateTime licenceAcquired, DateTime licenceRenewed)
         {
             Id = id;
-            this.FirstName = firstName;
-            this.MiddleName = middleName;
-            this.LastName = lastName;
-            this.BirthDate = birthDate;
-            this.Country = country;
+            FirstName = firstName;
+            MiddleName = middleName;
+            LastName = lastName;
+            BirthDate = birthDate;
+            Country = country;
             CountryCode = countryCode;
-            this.Gender = gender;
-            this.LicenceAcquired = licenceAcquired;
-            this.LicenceRenewed = licenceRenewed;
+            Gender = gender;
+            LicenceAcquired = licenceAcquired;
+            LicenceRenewed = licenceRenewed;
         }
     }
 }

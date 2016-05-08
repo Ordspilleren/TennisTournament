@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace TennisTournament
 {
-    class Program
+    internal class Program
     {
-        // TODO: Add user interface to start simulation, add players etc.
         // TODO: Revise access modifiers (private, protected, public)
         // TODO: Generics
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             var tournaments = new List<Tournament>();
@@ -19,8 +18,9 @@ namespace TennisTournament
             // NOTE: Not all functionality is implemeted in the UI.
             // This means that amount of players and the game types of a tournament cannot be set outside of the code.
             // The order of the player list also cannot be changed in the UI. By default they are listed by first name.
+            // There is also no error checking, so the actions in the UI should be followed in order.
 
-            var ui = new UI();
+            var ui = new Ui();
             ConsoleKeyInfo cki;
 
             var malePlayers = ReadFiles.GetPlayers(@"data/MalePlayer.txt");

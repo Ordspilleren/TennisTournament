@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace TennisTournament
 {
-    class Match
+    internal class Match
     {
         public enum Type { WSingle, MSingle, WDouble, MDouble, MixDouble }
         public Type MatchType { get; private set; }
         private bool Bo3 { get; set; }
         private bool Bo5 { get; set; }
-        private int Sets { get; set; }
+        private int Sets { get; }
         public bool IsDouble { get; private set; }
-        private Team Team1 { get; set; }
-        private Team Team2 { get; set; }
+        private Team Team1 { get; }
+        private Team Team2 { get; }
         // SetResults should probably be a dictionary with team and score instead
         public List<Tuple<int, int>> SetResults { get; private set; }
         public int Round { get; private set; }
@@ -87,12 +87,12 @@ namespace TennisTournament
 
         public void AddReferee(Referee referee)
         {
-            this.Referee = referee;
+            Referee = referee;
         }
 
         public void RemoveReferee()
         {
-            this.Referee = null;
+            Referee = null;
         }
 
         public bool IsValid()

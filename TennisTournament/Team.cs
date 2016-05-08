@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TennisTournament
 {
-    class Team
+    internal class Team
     {
         public Player Player1 { get; private set; }
         public Player Player2 { get; private set; }

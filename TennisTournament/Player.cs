@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TennisTournament
 {
-    class Player : IPerson
+    internal class Player : IPerson
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -20,13 +20,13 @@ namespace TennisTournament
         public Player(int id, string firstName, string middleName, string lastName, DateTime birthDate, string country, string countryCode, Gender gender)
         {
             Id = id;
-            this.FirstName = firstName;
-            this.MiddleName = middleName;
-            this.LastName = lastName;
-            this.BirthDate = birthDate;
-            this.Country = country;
+            FirstName = firstName;
+            MiddleName = middleName;
+            LastName = lastName;
+            BirthDate = birthDate;
+            Country = country;
             CountryCode = countryCode;
-            this.Gender = gender;
+            Gender = gender;
         }
 
         public int GetAge()

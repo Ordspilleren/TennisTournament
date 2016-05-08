@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TennisTournament
 {
-    class UI
+    internal class Ui
     {
         public void DisplayMenu(Tournament selectedTournament)
         {

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace TennisTournament
 {
-    static class ReadFiles
+    internal static class ReadFiles
     {
         public static List<Player> GetPlayers(string playerFile)
         {

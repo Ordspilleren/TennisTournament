@@ -6,26 +6,25 @@ using System.Threading.Tasks;
 
 namespace TennisTournament
 {
-    class Tournament
+    internal class Tournament
     {
         public string Name { get; private set; }
         public int Year { get; private set; }
         public DateTime DateFrom { get; private set; }
         public DateTime DateTo { get; private set; }
-        private List<Referee> Referees { get; set; }
-        //private List<Player> Players { get; set; }
-        public List<Team> Teams { get; private set; }
+        private List<Referee> Referees { get; }
+        public List<Team> Teams { get; }
         private static readonly int[] TeamCount = { 8, 16, 32, 64 };
         private Referee GameMaster { get; set; }
-        public List<Match> Matches { get; private set; }
-        public List<Team> Winner { get; private set; }
+        public List<Match> Matches { get; }
+        public List<Team> Winner { get; }
 
         public Tournament(string name, int year, DateTime dateFrom, DateTime dateTo)
         {
-            this.Name = name;
-            this.Year = year;
-            this.DateFrom = dateFrom;
-            this.DateTo = dateTo;
+            Name = name;
+            Year = year;
+            DateFrom = dateFrom;
+            DateTo = dateTo;
             Teams = new List<Team>();
             Referees = new List<Referee>();
             Winner = new List<Team>();
@@ -148,9 +147,8 @@ namespace TennisTournament
                 return;
             }
 
-            var currentTeams = new List<Team>();
             var currentMatches = new List<Match>();
-            currentTeams = doubles ? Teams.Where(team => team.IsDouble).ToList() : Teams.Where(team => !team.IsDouble).ToList();
+            var currentTeams = doubles ? Teams.Where(team => team.IsDouble).ToList() : Teams.Where(team => !team.IsDouble).ToList();
             var round = 1;
 
             while (currentTeams.Count > 1)
