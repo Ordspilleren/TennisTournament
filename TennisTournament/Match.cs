@@ -19,7 +19,8 @@ namespace TennisTournament
         private Team Team2 { get; set; }
         // SetResults should probably be a dictionary with team and score instead
         public List<Tuple<int, int>> SetResults { get; private set; }
-        private Referee Referee { get; set; }
+        public int Round { get; private set; }
+        public Referee Referee { get; private set; }
         public Team Winner { get; private set; }
 
         public Match(Team team1, Team team2)
@@ -39,11 +40,15 @@ namespace TennisTournament
             }
         }
 
-        public void Play()
+        public void Play(int round = 0)
         {
             if (!IsValid())
             {
                 throw new ArgumentException("The team composition that was input does not allow for a valid match. Match cannot be played.");
+            }
+            if (round != 0)
+            {
+                Round = round;
             }
 
             SetResults = new List<Tuple<int, int>>();
@@ -75,43 +80,6 @@ namespace TennisTournament
             Winner = (team1SetsWon > team2SetsWon ? Team1 : Team2);
         }
 
-        //public List<Player> GetWinner()
-        //{
-        //    int player1SetsWon = 0;
-        //    int player2SetsWon = 0;
-        //    foreach (var set in SetResults)
-        //    {
-        //        if (set.Item1 == 6 && set.Item2 <= 5)
-        //        {
-        //            player1SetsWon++;
-        //        } else
-        //        {
-        //            player2SetsWon++;
-        //        }
-        //    }
-
-        //    if (MatchType == Type.MSingle || MatchType == Type.WSingle)
-        //    {
-        //        if (player1SetsWon > player2SetsWon)
-        //        {
-        //            return new List<Player> { SinglePlayers[0] };
-        //        } else
-        //        {
-        //            return new List<Player> { SinglePlayers[1] };
-        //        }
-        //    } else
-        //    {
-        //        if (player1SetsWon > player2SetsWon)
-        //        {
-        //            return new List<Player> { DoublePlayers[0].Item1, DoublePlayers[0].Item2 };
-        //        } else
-        //        {
-        //            return new List<Player> { DoublePlayers[1].Item1, DoublePlayers[1].Item2 };
-        //        }
-        //    }
-        //}
-
-        // Needs to be refined to support sets > actual sets played
         public int SetsPlayed()
         {
             return SetResults.Count;

@@ -26,15 +26,12 @@ namespace TennisTournament
             this.Year = Year;
             this.DateFrom = dateFrom;
             this.DateTo = dateTo;
-            //this.Referees = referees;
-            //this.Teams = teams;
             Teams = new List<Team>();
             Referees = new List<Referee>();
             Winner = new List<Team>();
             Matches = new List<Match>();
         }
 
-        // TODO: There should be a check that ensures the total amount of teams is either 8, 16, 32 or 64
         public void AddPlayers(Player player)
         {
             Teams.Add(new Team(player));
@@ -61,11 +58,10 @@ namespace TennisTournament
             }
         }
 
-        //public void RemovePlayer(Player player)
-        //{
-        //    //var item = Players.Find(x => x.FirstName == player.FirstName && x.MiddleName == player.MiddleName && x.LastName == player.LastName);
-        //    Players.Remove(player);
-        //}
+        public void RemoveTeam(Team team)
+        {
+            Teams.Remove(team);
+        }
 
         public void AddReferees(Referee referee)
         {
@@ -111,7 +107,6 @@ namespace TennisTournament
             return sortedPlayers;
         }
 
-        // TODO: A referee should be assigned each match
         private List<Match> InitializeMatches(List<Team> teams)
         {
             var rnd = new Random();
@@ -122,6 +117,7 @@ namespace TennisTournament
                 var team1 = teams[rnd.Next(teams.Count)];
                 var team2 = teams[rnd.Next(teams.Count)];
                 var match = new Match(team1, team2);
+                match.AddReferee(Referees[rnd.Next(Referees.Count)]);
                 if (!assignedTeams.Contains(team1) && !assignedTeams.Contains(team2) && match.IsValid())
                 {
                     //var players = new List<Player> { team1, team2 };
@@ -132,24 +128,13 @@ namespace TennisTournament
             }
 
             return matches;
-
-
-            //for (int i = 0; i < Players.Count / 2;)
-            //{
-
-            //    List<Player> players = new List<Player> { Players[rnd.Next(Players.Count)], Players[rnd.Next(Players.Count)] };
-            //    assignedPlayers.AddRange(players);
-            //    Match match = new Match();
-            //    i++;
-            //}
         }
 
-        // TODO: Possibly add a round counter and a round integer to Matches. This way there can be kept track of which round a match was played in.
         public void Simulate(bool doubles)
         {
             if (!TeamCount.Contains(Teams.Count))
             {
-                Console.WriteLine("There is not an allowed number of teams in the tournament.");
+                Console.WriteLine($"There is not an allowed number of teams in the tournament. Current amount: {Teams.Count}");
                 return;
             }
             if (!Referees.Any())
@@ -166,6 +151,7 @@ namespace TennisTournament
             var currentTeams = new List<Team>();
             var currentMatches = new List<Match>();
             currentTeams = doubles ? Teams.Where(team => team.IsDouble).ToList() : Teams.Where(team => !team.IsDouble).ToList();
+            var round = 1;
 
             while (currentTeams.Count > 1)
             {
@@ -175,13 +161,13 @@ namespace TennisTournament
                 currentTeams.Clear();
                 foreach (var match in currentMatches)
                 {
-                    match.Play();
+                    match.Play(round);
                     currentTeams.Add(match.Winner);
                 }
                 currentMatches.Clear();
+                round++;
             }
 
-            //Winner = winnerCount == 1 ? new List<Team>() { currentTeams[0] } : new List<Team>() { currentTeams[0], currentTeams[1] };
             Winner.Add(currentTeams[0]);
         }
     }

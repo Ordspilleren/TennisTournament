@@ -19,14 +19,4 @@ namespace TennisTournament
         string CountryCode { get; set; }
         Gender Gender { get; set; }
     }
-
-    //public class Person : IPerson
-    //{
-    //    public string firstName { get; set; }
-    //    public string middleName { get; set; }
-    //    public string lastName { get; set; }
-    //    public DateTime birthDate { get; set; }
-    //    public string nationality { get; set; }
-    //    public Gender gender { get; set; }
-    //}
 }

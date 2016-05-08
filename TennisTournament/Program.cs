@@ -14,39 +14,20 @@ namespace TennisTournament
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            //var henning = new Player("Henning", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            //var karsten = new Player("Karsten", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            //var gert = new Player("Gert", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            //var jens = new Player("Jens", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Male);
-            //var lea = new Player("Lea", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
-            //var trine = new Player("Trine", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
-            //var hanne = new Player("Hanne", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
-            //var karoline = new Player("Karoline", "Gungadin", "Hansen", DateTime.Parse("1994-07-05"), "Danish", Gender.Female);
 
-            //var lel = new Referee("Lars", "Middlename", "Lel", DateTime.Now, "Danish", Gender.Male, DateTime.Now, DateTime.Now);
-            //var refs = new List<Referee> { lel };
-
-            //var tournament1Players = new List<Player>() { henning, karsten, gert, trine, hanne, karoline, jens, lea };
-            var players = ReadFiles.GetPlayers(@"data/MalePlayer.txt", @"data/FemalePlayer.txt", 96);
+            var malePlayers = ReadFiles.GetPlayers(@"data/MalePlayer.txt");
+            var femalePlayers = ReadFiles.GetPlayers(@"data/FemalePlayer.txt");
+            var allPlayers = malePlayers.Concat(femalePlayers);
             var referees = ReadFiles.GetReferees(@"data/refs.txt", 10);
-            var singlePlayers = players.GetRange(0, 32);
-            var doublePlayers = players.GetRange(32, 64);
-            var doublePlayersDone = new List<Tuple<Player, Player>>();
-
-            for (int i = 0; i < doublePlayers.Count; i += 2)
-            {
-                doublePlayersDone.Add(new Tuple<Player, Player>(doublePlayers[i], doublePlayers[i+1]));
-            }
 
             var tournament = new Tournament("Test", DateTime.Now, DateTime.Now, DateTime.Now);
-            tournament.AddPlayers(singlePlayers);
-            tournament.AddPlayers(doublePlayersDone);
+            PlayerAssignHelper(tournament, allPlayers, GameTypes.Both, 64);
             tournament.AddReferees(referees);
             tournament.AddGameMaster(referees[0]);
 
             foreach (var player in tournament.ListPlayers())
             {
-                Console.WriteLine(player.FirstName);
+                Console.WriteLine(player.FirstName + player.Gender);
             }
 
             Console.WriteLine("_________________________");
@@ -67,18 +48,48 @@ namespace TennisTournament
 
             Console.WriteLine("___________________");
 
-            // SetResults are not printed properly for some reason
             foreach (var match in tournament.Matches)
             {
                 Console.WriteLine(match.Winner.Player1.FirstName);
                 Console.WriteLine(match.MatchType);
+                Console.WriteLine(match.Referee.FirstName);
+                Console.WriteLine(match.Round);
                 foreach (var result in match.SetResults)
                 {
                     Console.WriteLine(result.Item1 + ":" + result.Item2);
                 }
             }
 
+
+
             Console.ReadKey();
+        }
+
+        private enum GameTypes { Singles, Doubles, Both }
+        private static void PlayerAssignHelper(Tournament tournament, IEnumerable<Player> players, GameTypes gameTypes, int teamCount)
+        {
+            var randomizedPlayers = players.OrderBy(p => Guid.NewGuid()).ToList();
+            switch (gameTypes)
+            {
+                case GameTypes.Singles:
+                    tournament.AddPlayers(randomizedPlayers.GetRange(0, teamCount));
+                    break;
+                case GameTypes.Doubles:
+                    for (int i = 0; i < teamCount*2; i += 2)
+                    {
+                        tournament.AddPlayers(randomizedPlayers[i], randomizedPlayers[i + 1]);
+                    }
+                    break;
+                case GameTypes.Both:
+                    tournament.AddPlayers(randomizedPlayers.GetRange(0, teamCount/2));
+                    for (int i = teamCount/2; i < teamCount + teamCount/2; i += 2)
+                    {
+                        tournament.AddPlayers(randomizedPlayers[i], randomizedPlayers[i + 1]);
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gameTypes), gameTypes, null);
+            }
         }
     }
 }

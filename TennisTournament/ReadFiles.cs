@@ -9,27 +9,20 @@ namespace TennisTournament
 {
     static class ReadFiles
     {
-        public static List<Player> GetPlayers(string maleFile, string femaleFile, int playerLimit)
+        public static List<Player> GetPlayers(string playerFile)
         {
-            var malePlayers = new List<Player>();
-            var femalePlayers = new List<Player>();
-            foreach (var line in File.ReadLines(maleFile).Take(playerLimit / 2))
+            var players = new List<Player>();
+            var gender = playerFile.ToLower().Contains("female") ? Gender.Female : Gender.Male;
+
+            foreach (var line in File.ReadLines(playerFile))
             {
                 var splitLine = line.Split('|');
 
-                var player = new Player(int.Parse(splitLine[0]), splitLine[1], splitLine[2], splitLine[3], DateTime.Parse(splitLine[4]), splitLine[5], splitLine[6], Gender.Male);
-                malePlayers.Add(player);
+                var player = new Player(int.Parse(splitLine[0]), splitLine[1], splitLine[2], splitLine[3], DateTime.Parse(splitLine[4]), splitLine[5], splitLine[6], gender);
+                players.Add(player);
             }
 
-            foreach (var line in File.ReadLines(femaleFile).Take(playerLimit / 2))
-            {
-                var splitLine = line.Split('|');
-
-                var player = new Player(int.Parse(splitLine[0]), splitLine[1], splitLine[2], splitLine[3], DateTime.Parse(splitLine[4]), splitLine[5], splitLine[6], Gender.Female);
-                femalePlayers.Add(player);
-            }
-            malePlayers.AddRange(femalePlayers);
-            return malePlayers.OrderBy(p => Guid.NewGuid()).ToList();
+            return players;
         }
 
         public static List<Referee> GetReferees(string refereeFile, int refereeLimit)
