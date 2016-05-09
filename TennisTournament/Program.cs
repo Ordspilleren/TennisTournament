@@ -8,8 +8,6 @@ namespace TennisTournament
 {
     internal class Program
     {
-        // TODO: Revise access modifiers (private, protected, public)
-        // TODO: Generics
         private static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -38,7 +36,7 @@ namespace TennisTournament
                 {
                     case '1':
                         var tournament = ui.CreateTournament();
-                        PlayerAssignHelper(tournament, allPlayers, GameTypes.Both, 8);
+                        PlayerAssignHelper(tournament, allPlayers, GameTypes.Singles, 8);
                         tournament.AddReferees(referees);
                         tournament.AddGameMaster(referees[0]);
                         tournaments.Add(tournament);
@@ -51,7 +49,12 @@ namespace TennisTournament
                         selectedtournament = tournaments[int.Parse(Console.ReadKey().KeyChar.ToString())-1];
                         break;
                     case '4':
-                        selectedtournament.Simulate(true);
+                        if (selectedtournament == null)
+                        {
+                            Console.WriteLine("Please select a tournament first!");
+                            break;
+                        }
+                        //selectedtournament.Simulate(true);
                         selectedtournament.Simulate(false);
                         Console.WriteLine($"Tournament '{selectedtournament.Name}' has been simulated!");
                         break;

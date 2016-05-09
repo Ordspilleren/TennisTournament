@@ -15,8 +15,8 @@ namespace TennisTournament
         private bool Bo5 { get; set; }
         private int Sets { get; }
         public bool IsDouble { get; private set; }
-        private Team Team1 { get; }
-        private Team Team2 { get; }
+        public Team Team1 { get; }
+        public Team Team2 { get; }
         // SetResults should probably be a dictionary with team and score instead
         public List<Tuple<int, int>> SetResults { get; private set; }
         public int Round { get; private set; }

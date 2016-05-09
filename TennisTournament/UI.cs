@@ -11,7 +11,7 @@ namespace TennisTournament
         public void DisplayMenu(Tournament selectedTournament)
         {
             var selectedTournamentText = selectedTournament == null ? "None" : selectedTournament.Name;
-            var selectedTournamentStatus = selectedTournament != null && selectedTournament.Winner.Any() ? "Completed" : "In progress";
+            var selectedTournamentStatus = selectedTournament != null && selectedTournament.IsOver() ? "Completed" : "In progress";
             Console.WriteLine($@"
              _______________|MENU|________________________
             |                                             |
@@ -78,11 +78,12 @@ namespace TennisTournament
                 Console.WriteLine("---Players---");
                 if (!match.IsDouble)
                 {
-                    Console.WriteLine($"{match.Winner.Player1.FirstName} {match.Winner.Player1.MiddleName} {match.Winner.Player1.LastName}");
+                    Console.WriteLine($"{match.Team1.Player1.FirstName} {match.Team1.Player1.MiddleName} {match.Team1.Player1.LastName} (VS) {match.Team2.Player1.FirstName} {match.Team2.Player1.MiddleName} {match.Team2.Player1.LastName}");
                 }
                 else
                 {
                     Console.WriteLine($"{match.Winner.Player1.FirstName} {match.Winner.Player1.MiddleName} {match.Winner.Player1.LastName} & {match.Winner.Player2.FirstName} {match.Winner.Player2.MiddleName} {match.Winner.Player2.LastName}");
+                    Console.WriteLine($"{match.Team1.Player1.FirstName} {match.Team1.Player1.MiddleName} {match.Team1.Player1.LastName} & {match.Team1.Player2.FirstName} {match.Team1.Player2.MiddleName} {match.Team1.Player2.LastName} (VS) {match.Team2.Player1.FirstName} {match.Team2.Player1.MiddleName} {match.Team2.Player1.LastName} & {match.Team2.Player2.FirstName} {match.Team2.Player2.MiddleName} {match.Team2.Player2.LastName}");
                 }
                 Console.WriteLine("---Match Type---");
                 Console.WriteLine(match.MatchType);
